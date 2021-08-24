@@ -1,26 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { Country } from "../types"
 
-
+const URL = "https://restcountries.eu/rest/v2/all"
 const useCountry = () =>  {
    
-    const [countries, setCountries] = useState<[]>([])
+    const [countries, setCountries] = useState<Country[]>([])
     const [error, setError] = useState()
 
-    const URL = "https://restcountries.eu/rest/v2/all"
+  
 
     useEffect(() => {
         axios.get(URL)
-        .then(response => setCountries(response.data))
+        .then(res => setCountries(res.data))
         .catch(error => setError(error))
-       console.log(countries);
+       
        
         
         
         }, [])
-
+  console.log(countries)
     return [countries, error]
 
 }
