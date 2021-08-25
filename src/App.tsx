@@ -1,9 +1,15 @@
-import TablePage from "./components/TablePage";
+
+import { Container } from "@material-ui/core";
+
+import HomePage from "./Pages/Homepage";
 
 function App() {
   return (
     <>
-      <TablePage />
+    <Container fixed>
+    <HomePage />
+      </Container>
+      
     </>
   );
 }
