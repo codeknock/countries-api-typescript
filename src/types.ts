@@ -6,7 +6,7 @@ export type Country = {
     languages: Languages[]
 
     region: string
-    countries: Country[]
+    
   }
 
   export type Languages = {name: string, nativeName: string}

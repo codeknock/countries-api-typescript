@@ -28,10 +28,10 @@ const SingleCountryPage = () => {
   const classes = useStyles();
 
   const { countryName } = useParams<Params>();
-  const [countries] = useCountry();
+  const countryData = useCountry();
   const history = useHistory();
 
-  const details = countries?.find(
+  const details = countryData?.find(
     (country: any | Country[]) =>
       country.name.toLowerCase() === countryName.toLowerCase()
   );

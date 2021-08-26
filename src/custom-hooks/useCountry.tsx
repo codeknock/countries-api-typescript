@@ -1,28 +1,22 @@
 
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { Country } from "../types"
+import {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCountriesThunk } from '../Redux/Actions'
+import { AppState } from '../Redux/Reducers/rootReducer'
 
-const URL = "https://restcountries.eu/rest/v2/all"
-const useCountry = () =>  {
-   
-    const [countries, setCountries] = useState<Country[]>([])
-    const [error, setError] = useState()
-
-  
-
+const useCountry = () => {
+    const dispatch = useDispatch()
+  const countryData = useSelector((state: AppState) => state.countryReducer.countries)
+    
+    
     useEffect(() => {
-        axios.get(URL)
-        .then(res => setCountries(res.data))
-        .catch(error => setError(error))
-       
-       
-        
-        
-        }, [])
-  console.log(countries)
-    return [countries, error]
+        dispatch(fetchCountriesThunk())
+    }, [dispatch])
 
+    return countryData
 }
+
+
+
 
 export default useCountry

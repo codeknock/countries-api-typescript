@@ -7,9 +7,9 @@ import useCountry from "../custom-hooks/useCountry";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
-  const [countries] = useCountry();
+  const countryData = useCountry();
 
-  const filteredCountry = countries?.filter((country: { name: string }) =>
+  const filteredCountry = countryData?.filter((country: { name: string }) =>
     country.name.toLowerCase().includes(search.toLowerCase())
   );
 

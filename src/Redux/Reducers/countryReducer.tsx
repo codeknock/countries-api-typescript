@@ -1,9 +1,9 @@
 
-import {AllActions, FETCH_COUNTRIES, FETCH_COUNTRIES_FAILURE, FETCH_COUNTRIES_SUCCESS } from "../../types"
+import {AllActions, Country, FETCH_COUNTRIES, FETCH_COUNTRIES_FAILURE, FETCH_COUNTRIES_SUCCESS } from "../../types"
 
 
 type initStateReducer = {
-    countries: [],
+    countries: Country[],
     isLoading: boolean,
     error: string
 }
