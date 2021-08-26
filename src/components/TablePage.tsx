@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import { Button } from "@material-ui/core";
-//import useCountry from "../custom-hooks/useCountry";
 import { Country } from "../types";
 
 import {
@@ -14,10 +12,12 @@ import {
   TableBody,
   Table,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
+    
   },
 }));
 
@@ -27,35 +27,47 @@ const TablePage = ({ countries }: any) => {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table className={classes.table}>
+        <Table
+          className={classes.table}
+          style={{ tableLayout: "fixed", whiteSpace: "nowrap" }}
+        >
           <TableHead>
             <TableRow>
-              <TableCell>FLAG</TableCell>
-              <TableCell>NAME</TableCell>
-              <TableCell>POPULATION</TableCell>
-              <TableCell>REGION</TableCell>
-              <TableCell>ACTION</TableCell>
+              <TableCell align="center" >FLAG</TableCell>
+              <TableCell align="center">NAME</TableCell>
+              
+              
+              <TableCell align="center">POPULATION</TableCell>
+              <TableCell align="center">REGION</TableCell>
+              <TableCell align="center">ACTION</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {countries &&
               countries.map((country: Country[] | Country | any) => (
                 <TableRow key={country.name}>
-                  <TableCell>
+                  <TableCell align="center">
                     <img
                       src={country.flag}
                       alt={country.flag}
                       style={{ width: "150px" }}
                     />
                   </TableCell>
-                  <TableCell>{country.name}</TableCell>
+                  <TableCell align="center">
+                    <Link
+                      to={`/${country.name}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      {country.name}
+                    </Link>
+                  </TableCell>
 
-                  <TableCell>{country.population}</TableCell>
-                  <TableCell>{country.region}</TableCell>
+                  <TableCell align="center">{country.population}</TableCell>
+                  <TableCell align="center">{country.region}</TableCell>
 
-                  <TableCell>
+                  <TableCell align="center">
                     <Button variant="contained" color="primary">
-                      Add
+                      LIKE
                     </Button>
                   </TableCell>
                 </TableRow>

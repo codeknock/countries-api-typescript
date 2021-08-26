@@ -1,15 +1,19 @@
 
-import { Container } from "@material-ui/core";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import Homepage from "./Pages/Homepage";
+import SingleCountryPage from "./Pages/SingleCountryPage";
 
-import HomePage from "./Pages/Homepage";
 
 function App() {
   return (
     <>
-    <Container fixed>
-    <HomePage />
-      </Container>
-      
+    
+      <Router>
+      <Switch>
+        <Route exact path="/" component={Homepage}></Route>
+        <Route exact path="/:countryName" component={SingleCountryPage}></Route>
+      </Switch>
+      </Router>
     </>
   );
 }
