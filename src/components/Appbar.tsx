@@ -19,6 +19,7 @@ import { Badge, Button, Drawer } from "@material-ui/core";
 import CartItems from "./CartItems";
 import { AppState } from "../Redux/Reducers/rootReducer";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 
@@ -97,7 +98,7 @@ const Appbar = ({ search, onChange }: any) => {
           <AppBar position="static" >
             <Toolbar>
               <Typography className={classes.title} variant="h6" noWrap>
-                Rest Countries API
+                <Link to = "/" style={{textDecoration: 'none'}}>Rest Countries</Link>
               </Typography>
               
               <div className={classes.search}>
