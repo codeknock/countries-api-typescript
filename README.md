@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+** TYPESCRIPT COUNTRIES API **
+- search any desired country and get details in singlepage
+- add countries you like to cart as favorite country
+- fully responsive
+- stacks: React-Redux-Typescript,  Material-ui
+
+
+
+ # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
