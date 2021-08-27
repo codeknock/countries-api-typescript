@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
+import cartReducer from "./cartReducer";
 import countryReducer from "./countryReducer";
 const rootReducer = combineReducers({
+  countryReducer,
+  cartReducer,
+});
 
-   countryReducer,
-})
-
-export type AppState = ReturnType<typeof rootReducer>
-export default rootReducer
+export type AppState = ReturnType<typeof rootReducer>;
+export default rootReducer;

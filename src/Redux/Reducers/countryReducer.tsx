@@ -1,51 +1,49 @@
-
-import {AllActions, Country, FETCH_COUNTRIES, FETCH_COUNTRIES_FAILURE, FETCH_COUNTRIES_SUCCESS } from "../../types"
-
+import {
+  AllActions,
+  Country,
+  FETCH_COUNTRIES,
+  FETCH_COUNTRIES_FAILURE,
+  FETCH_COUNTRIES_SUCCESS,
+} from "../../types";
 
 type initStateReducer = {
-    countries: Country[],
-    isLoading: boolean,
-    error: string
-}
+  countries: Country[];
+  isLoading: boolean;
+  error: string;
+};
 
 const initState: initStateReducer = {
-    countries: [],
-    isLoading: false,
-    error: ''
-}
- 
+  countries: [],
+  isLoading: false,
+  error: "",
+};
 
 const countryReducer = (state = initState, action: AllActions) => {
+  switch (action.type) {
+    case FETCH_COUNTRIES:
+      return {
+        ...state,
+        isLoading: true,
+      };
 
-    switch (action.type) {
+    case FETCH_COUNTRIES_SUCCESS:
+      return {
+        ...state,
+        countries: action.payload,
+        isLoading: false,
+        error: "",
+      };
 
-        case FETCH_COUNTRIES:
-            return {
-                ...state,
-                isLoading: true,
-            }
-            
-            case FETCH_COUNTRIES_SUCCESS:
-                return {
-                    ...state,
-                    countries: action.payload,
-                    isLoading: false,
-                    error: '',
-                }
+    case FETCH_COUNTRIES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
 
-                case FETCH_COUNTRIES_FAILURE:
-                    return {
-                        ...state,
-                        isLoading: false,
-                        error: action.payload
-                    }
+    default:
+      return state;
+  }
+};
 
-                    default:
-                        return state
-           
-            
-    }
-}
-
-
-export default countryReducer
+export default countryReducer;

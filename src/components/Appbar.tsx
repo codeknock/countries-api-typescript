@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
+
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import ThemeDashboard from "../ThemeDashboard";
@@ -11,8 +11,15 @@ import {
   Theme,
   makeStyles,
 } from "@material-ui/core/styles";
-//import MenuIcon from '@material-ui/icons/Menu';
+
 import SearchIcon from "@material-ui/icons/Search";
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import { Badge, Button, Drawer } from "@material-ui/core";
+
+import CartItems from "./CartItems";
+import { AppState } from "../Redux/Reducers/rootReducer";
+import { useSelector } from "react-redux";
+
 
 
 
@@ -33,6 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     search: {
       position: "relative",
+
       borderRadius: theme.shape.borderRadius,
       backgroundColor: alpha(theme.palette.common.white, 0.15),
       "&:hover": {
@@ -73,52 +81,60 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+
+
+
 const Appbar = ({ search, onChange }: any) => {
   const classes = useStyles();
+  const[cart, setCart] = useState(false)
+  const itemState = useSelector((state: AppState) => state.cartReducer.cart )
+
 
   return (
     <>
       <div className={classes.root}>
-        
         <ThemeDashboard>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-            ></IconButton>
-            
-            <Typography className={classes.title} variant="h6" noWrap>
-              Welcome to The World
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
+          <AppBar position="static" >
+            <Toolbar>
+              <Typography className={classes.title} variant="h6" noWrap>
+                Rest Countries API
+              </Typography>
               
-              <InputBase
-                onChange={onChange}
-                value={search}
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-            
-          </Toolbar>
-          
-        </AppBar>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+
+                <InputBase
+                  onChange={onChange}
+                  value={search}
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ "aria-label": "search" }}
+                />
+                
+              </div> 
+              <Drawer anchor="right" open={cart} onClose={() => setCart(false)}>
+              <CartItems />
+              </Drawer>
+              
+              <Button onClick={() => setCart(true)}>
+                <Badge badgeContent = {itemState.length} color='secondary'>
+                <ShoppingBasketIcon>Cart</ShoppingBasketIcon>
+                </Badge>
+                </Button>
+                
+            </Toolbar>
+          </AppBar>
         </ThemeDashboard>
-        
-        
       </div>
     </>
   );
 };
 
 export default Appbar;
+
+

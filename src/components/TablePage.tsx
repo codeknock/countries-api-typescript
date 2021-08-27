@@ -11,18 +11,23 @@ import {
   TableCell,
   TableBody,
   Table,
+ 
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { addItemsToCart } from "../Redux/Actions";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../Redux/Reducers/rootReducer";
 
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
-    
   },
 }));
 
 const TablePage = ({ countries }: any) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const itemState = useSelector((state: AppState) => state.cartReducer.cart);
 
   return (
     <>
@@ -33,10 +38,9 @@ const TablePage = ({ countries }: any) => {
         >
           <TableHead>
             <TableRow>
-              <TableCell align="center" >FLAG</TableCell>
+              <TableCell align="center">FLAG</TableCell>
               <TableCell align="center">NAME</TableCell>
-              
-              
+
               <TableCell align="center">POPULATION</TableCell>
               <TableCell align="center">REGION</TableCell>
               <TableCell align="center">ACTION</TableCell>
@@ -66,15 +70,30 @@ const TablePage = ({ countries }: any) => {
                   <TableCell align="center">{country.region}</TableCell>
 
                   <TableCell align="center">
-                    <Button variant="contained" color="primary">
-                      LIKE
-                    </Button>
+                    {itemState.find(
+                      (item: any) => item.name === country.name
+                    ) ? (
+                      <Button variant="contained" disabled>
+                        LIKE
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => dispatch(addItemsToCart(country))}
+                      >
+                        LIKE
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      
+      
     </>
   );
 };
