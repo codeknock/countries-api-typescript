@@ -1,3 +1,5 @@
+DEMO here: https://chandra-restcountries-api.netlify.app
+
 ** TYPESCRIPT COUNTRIES API **
 - search any desired country and get details in singlepage
 - add countries you like to cart as favorite country
