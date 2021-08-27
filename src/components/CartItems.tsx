@@ -48,9 +48,9 @@ const CartItems = () => {
             <img src={item.flag} style={{ width: "70px" }} alt="flags" />
             <Typography variant="h5" color="textSecondary">
               {item.name}
-            </Typography><br></br>
+            </Typography>
+            <br></br>
             <Button
-              
               variant="contained"
               onClick={() => dispatch(removeFromCart(item))}
               color="secondary"
