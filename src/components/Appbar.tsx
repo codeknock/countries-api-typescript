@@ -98,7 +98,7 @@ const Appbar = ({ search, onChange }: any) => {
           <AppBar position="static" >
             <Toolbar>
               <Typography className={classes.title} variant="h6" noWrap>
-                <Link to = "/" style={{textDecoration: 'none'}}>Rest Countries</Link>
+                <Link to = "/" style={{textDecoration: 'none', fontFamily: 'Permanent Marker, cursive'}}>Rest Countries</Link>
               </Typography>
               
               <div className={classes.search}>
