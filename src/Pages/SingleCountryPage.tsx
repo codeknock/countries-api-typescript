@@ -1,71 +1,76 @@
-import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+
+import { Card, CardContent, createStyles, Grid, makeStyles, Theme, Button } from "@material-ui/core";
+
 import Typography from "@material-ui/core/Typography";
 import useCountry from "../custom-hooks/useCountry";
 import { useHistory, useParams } from "react-router-dom";
-import { Button, Grid } from "@material-ui/core";
 import { Country } from "../types";
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 345,
+      minWidth: 345,
       textAlign: "center",
       width: "30%",
-      marginTop: 70,
+      marginTop: 90,
     },
+    button: {
+      marginTop: "20",
+      marginLeft: "250",
+    }
   })
 );
 
+
+
 type Params = {
   countryName: string;
-  name: string;
 };
 
 const SingleCountryPage = () => {
   const classes = useStyles();
-
   const { countryName } = useParams<Params>();
   const countryData = useCountry();
   const history = useHistory();
 
-  const details = countryData?.find(
-    (country: any | Country[]) =>
-      country.name.toLowerCase() === countryName.toLowerCase()
+  const details = (countryData as Country[] | Country | any).find(
+    (country: { name: { common: string } }) =>
+      country.name.common === countryName
   );
-
+  
+  if (countryData.length === 0) return <p>loading...</p>;
   return (
     <>
-      {details && (
-        <Grid container justifyContent="center">
-          <Card className={classes.root}>
-            <img src={details.flag} alt="flag" style={{ width: "150px" }} />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Name: {details.name}
+      {countryData.length !== 0 && details && (
+        
+          <Grid container justifyContent="center">
+            <Card className={classes.root}>
+              <img src={details.flags.svg} alt="flag" style={{ width: "250px" }} />
+              <CardContent>
+                <Typography variant="body2" color="textSecondary" component="span">
+                  Name: {details.name.common}
+                </Typography>
+              </CardContent>
+              <Typography variant="body2" color="textSecondary" component="span">Region: {details.region}</Typography>
+              
+              
+              <Typography variant="body2" color="textSecondary" component="span">
+                Borders: {details.borders && details.borders.join(",")}
+                         {!details.borders && <p>No borders</p>}
               </Typography>
-            </CardContent>
-            <Typography paragraph>Region: {details.region}</Typography>
-            <Typography paragraph>Population: {details.population}</Typography>
-            <Typography paragraph>
-              Languages:{" "}
-              {details.languages
-                .map((lang: { name: string }) => lang.name)
-                .join(",")}
-            </Typography>
-            <Typography>Borders: {details.borders.join(",")}</Typography>{" "}
-            <br></br>
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={() => history.push("/")}
-            >
-              Back
-            </Button>
-          </Card>
-        </Grid>
+              <br></br>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={() => history.push("/")}
+              >
+                Back
+              </Button>
+            </Card>
+          </Grid>
+        
       )}
     </>
   );

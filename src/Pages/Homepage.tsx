@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import Appbar from "../components/Appbar";
 import TablePage from "../components/TablePage";
 import useCountry from "../custom-hooks/useCountry";
+import { Country } from "../types";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
   const countryData = useCountry();
 
-  const filteredCountry = countryData?.filter((country: { name: string }) =>
-    country.name.toLowerCase().includes(search.toLowerCase())
+  const filteredCountry = (countryData as Country[]).filter((country: any) =>
+    country.name.common.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

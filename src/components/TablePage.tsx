@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Country } from "../types";
+//import { Country } from "../types";
 
 import {
   Paper,
@@ -34,7 +34,7 @@ const TablePage = ({ countries }: any) => {
   const itemState = useSelector((state: AppState) => state.cartReducer.cart);
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const columnHeader = ["Flag", "Name", "Population", "Region", "Action"];
 
@@ -56,57 +56,60 @@ const TablePage = ({ countries }: any) => {
           <Table>
             <TableHead>
               <TableRow>
-                {columnHeader.map((header) => (
-                  <TableCell align="center" style={{ minWidth: 170 }}>
+                {columnHeader.map((header, index) => (
+                  <TableCell
+                    align="center"
+                    style={{ minWidth: 170 }}
+                    key={index}
+                  >
                     {header}
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {countries &&
-                countries
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((country: Country[] | Country | any) => (
-                    <TableRow key={country.name}>
-                      <TableCell align="center">
-                        <img
-                          src={country.flag}
-                          alt={country.flag}
-                          style={{ width: "150px" }}
-                        />
-                      </TableCell>
-                      <TableCell align="center">
-                        <Link
-                          to={`/${country.name}`}
-                          style={{ textDecoration: "none", color: "black" }}
+              {countries
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((country: any, index: React.Key | null | undefined) => (
+                  <TableRow key={index}>
+                    <TableCell align="center">
+                      <img
+                        src={country.flags.svg}
+                        alt="flag"
+                        style={{ width: "150px" }}
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Link
+                        to={`/${country.name.common}`}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        {country.name.common}
+                      </Link>
+                    </TableCell>
+
+                    <TableCell align="center">{country.population}</TableCell>
+                    <TableCell align="center">{country.region}</TableCell>
+
+                    <TableCell align="center">
+                      {itemState.find(
+                        (item: any) => item.name.common === country.name.common
+                      ) ? (
+                        <Button variant="contained" disabled>
+                          LIKE
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => dispatch(addItemsToCart(country))}
                         >
-                          {country.name}
-                        </Link>
-                      </TableCell>
-
-                      <TableCell align="center">{country.population}</TableCell>
-                      <TableCell align="center">{country.region}</TableCell>
-
-                      <TableCell align="center">
-                        {itemState.find(
-                          (item: any) => item.name === country.name
-                        ) ? (
-                          <Button variant="contained" disabled>
-                            LIKE
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => dispatch(addItemsToCart(country))}
-                          >
-                            LIKE
-                          </Button>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                          LIKE
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

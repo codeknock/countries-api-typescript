@@ -1,6 +1,6 @@
 export type Country = {
-  name: string;
-  flag: string;
+  name: {common: string};
+  flags: {svg: string};
   population: number;
   borders: string[];
   languages: Languages[];

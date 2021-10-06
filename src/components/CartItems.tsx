@@ -42,12 +42,12 @@ const CartItems = () => {
       >
         {itemState.length === 0 && <p>no items in cart</p>}
       </Typography>
-      {itemState.map((item: any) => (
-        <Card className={classes.root} key={item.name}>
+      {itemState.map((item: any, index: any) => (
+        <Card className={classes.root} key={index}>
           <CardContent>
-            <img src={item.flag} style={{ width: "70px" }} alt="flags" />
+            <img src={item.flags.svg} style={{ width: "70px" }} alt="flags" />
             <Typography variant="h5" color="textSecondary">
-              {item.name}
+              {item.name.common}
             </Typography>
             <br></br>
             <Button

@@ -118,11 +118,11 @@ const Appbar = ({ search, onChange }: any) => {
                 />
                 
               </div> 
-              <Drawer anchor="right" open={cart} onClose={() => setCart(false)}>
+              <Drawer anchor="right" open={cart} onClose={() => setCart(!cart)}>
               <CartItems />
               </Drawer>
               
-              <Button onClick={() => setCart(true)}>
+              <Button onClick={() => setCart(!cart)}>
                 <Badge badgeContent = {itemState.length} color='secondary'>
                 <ShoppingBasketIcon>Cart</ShoppingBasketIcon>
                 </Badge>
